@@ -29,12 +29,12 @@ const validationSignUp = (req, res, next) => {
             "string.email": "Invalid email format. Please use a valid email address.",
         }),
         phoneNumber: Joi.string()
-            .length(11)
+            .length(13)
             .pattern(/^\d+$/)
             .required()
             .messages({
                 "any.required": "Please provide your phone number.",
-                "string.length": "Phone number should be exactly 11 digits.",
+                "string.length": "Phone number should be exactly 13 digits.",
                 "string.pattern.base": "Phone number should contain only numeric digits.",
             }),
         password: Joi.string()
