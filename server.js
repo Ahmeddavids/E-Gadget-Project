@@ -1,4 +1,4 @@
-require('./database/database')
+require('./config/config')
 const express = require('express');
 const morgan = require('morgan');
 const userRouter = require('./routes/userRouter');
