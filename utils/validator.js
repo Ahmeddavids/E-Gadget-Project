@@ -5,23 +5,23 @@ const validationSignUp = (req, res, next) => {
     const schema = Joi.object({
         firstName: Joi.string()
             .pattern(/^[A-Za-z]+$/)
-            .min(3)
+            .min(2)
             .required()
             .messages({
                 "any.required": "Please provide your first name.",
                 "string.empty": "First name cannot be left empty.",
                 "string.pattern.base": "First name should only contain letters.",
-                "string.min": "First name should be at least 3 characters long.",
+                "string.min": "First name should be at least 2 characters long.",
             }),
         lastName: Joi.string()
             .pattern(/^[A-Za-z]+$/)
-            .min(3)
+            .min(2)
             .required()
             .messages({
                 "any.required": "Please provide your last name.",
                 "string.empty": "Last name cannot be left empty.",
                 "string.pattern.base": "Last name should only contain letters.",
-                "string.min": "Last name should be at least 3 characters long.",
+                "string.min": "Last name should be at least 2 characters long.",
             }),
         email: Joi.string().email().required().messages({
             "any.required": "Please provide your email address.",
@@ -76,19 +76,19 @@ const validationUpdate = (req, res, next) => {
     const schema = Joi.object({
         firstName: Joi.string()
             .pattern(/^[A-Za-z]+$/)
-            .min(3)
+            .min(2)
             .messages({
                 "string.empty": "First name cannot be left empty.",
                 "string.pattern.base": "First name should only contain letters.",
-                "string.min": "First name should be at least 3 characters long.",
+                "string.min": "First name should be at least 2 characters long.",
             }),
         lastName: Joi.string()
             .pattern(/^[A-Za-z]+$/)
-            .min(3)
+            .min(2)
             .messages({
                 "string.empty": "Last name cannot be left empty.",
                 "string.pattern.base": "Last name should only contain letters.",
-                "string.min": "Last name should be at least 3 characters long.",
+                "string.min": "Last name should be at least 2 characters long.",
             }),
         email: Joi.string().email().messages({
             "string.empty": "Email address cannot be left empty.",
