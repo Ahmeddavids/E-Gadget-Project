@@ -52,7 +52,7 @@ const authenticate = async (req, res, next) => {
             });
         }
         res.status(500).json({
-            Error: error.message
+            message: error.message
         });
     }
 };

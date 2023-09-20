@@ -30,7 +30,7 @@ const signUp = async (req, res) => {
         }
 
         // Generate OTP
-        const otp = otpGenerator.generate(8, {
+        const otp = otpGenerator.generate(5, {
             lowerCaseAlphabets: false,
             upperCaseAlphabets: false,
             specialChars: false,
@@ -89,7 +89,7 @@ const signUp = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            Error: error.message,
+            message: error.message,
         });
     }
 };
@@ -102,12 +102,12 @@ const verifyOTP = async (req, res) => {
 
         if (!otp) {
             return res.status(400).json({
-                error: "Please enter OTP"
+                message: "Please enter OTP"
             });
         }
         if (!token) {
             return res.status(404).json({
-                error: "Token not found"
+                message: "Token not found"
             });
         }
 
@@ -119,14 +119,14 @@ const verifyOTP = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({
-                error: "User not found"
+                message: "User not found"
             });
         }
 
         // Check if the user has already been verified
         if (user.isVerified) {
             return res.status(400).json({
-                error: "User already verified"
+                message: "User already verified"
             });
         }
 
@@ -150,7 +150,7 @@ const verifyOTP = async (req, res) => {
             });
         } else {
             return res.status(400).json({
-                error: "Invalid OTP"
+                message: "Invalid OTP"
             });
         }
     } catch (error) {
@@ -169,7 +169,7 @@ const resendVerificationEmail = async (req, res) => {
         const { email } = req.body;
         if (!email) {
             return res.status(404).json({
-                error: "Please enter email address"
+                message: "Please enter email address"
             });
         }
 
@@ -177,19 +177,19 @@ const resendVerificationEmail = async (req, res) => {
         const user = await userModel.findOne({ email: email.toLowerCase() });
         if (!user) {
             return res.status(404).json({
-                error: "User not found"
+                message: "User not found"
             });
         }
 
         // Check if user has already been verified
         if (user.isVerified) {
             return res.status(400).json({
-                error: "User already verified"
+                message: "User already verified"
             });
         }
 
         // Generate OTP
-        const otp = otpGenerator.generate(8, {
+        const otp = otpGenerator.generate(5, {
             lowerCaseAlphabets: false,
             upperCaseAlphabets: false,
             specialChars: false,
@@ -236,7 +236,7 @@ const forgotPassword = async (req, res) => {
         const { email } = req.body;
         if (!email) {
             return res.status(404).json({
-                error: "Please enter email address"
+                message: "Please enter email address"
             });
         }
 
@@ -281,7 +281,7 @@ const resetPassword = async (req, res) => {
         const { newPassword } = req.body;
         if (!newPassword) {
             return res.status(404).json({
-                error: "Please enter a new password"
+                message: "Please enter a new password"
             });
         }
 
@@ -327,7 +327,7 @@ const userLogin = async (req, res) => {
         // Check if either email or phoneNumber is provided
         if (!email && !phoneNumber) {
             return res.status(400).json({
-                error: "Please provide either an email or a phone number"
+                message: "Please provide either an email or a phone number"
             });
         }
 
@@ -344,7 +344,7 @@ const userLogin = async (req, res) => {
         // Check if the user exists
         if (!user) {
             return res.status(404).json({
-                Failed: 'User not found'
+                message: 'User not found'
             });
         }
 
@@ -353,8 +353,7 @@ const userLogin = async (req, res) => {
         // Check for password error
         if (!checkPassword) {
             return res.status(400).json({
-                Message: 'Login Unsuccessful',
-                Failed: 'Invalid password'
+                message: 'Invalid password'
             })
         }
 
@@ -384,7 +383,7 @@ const userLogin = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            Error: error.message
+            message: error.message
         })
     }
 }
@@ -396,7 +395,7 @@ const changePassword = async (req, res) => {
         const { newPassword, existingPassword } = req.body;
         if (!newPassword || !existingPassword) {
             return res.status(404).json({
-                error: "Please enter all fields"
+                message: "Please enter all fields"
             });
         }
 
@@ -461,7 +460,7 @@ const signOut = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({
-            Error: error.message
+            message: error.message
         });
     }
 };
@@ -498,7 +497,7 @@ const updateUser = async (req, res) => {
         if (phoneNumber) {
             data.phoneNumber = phoneNumber
             const phoneExists = await userModel.findOne({ phoneNumber: phoneNumber })
-            if (phoneExists && phoneExists._id.toString() !== userId){
+            if (phoneExists && phoneExists._id.toString() !== userId) {
                 return res.status(400).json({
                     message: `Phone Number already exists`
                 })
@@ -526,7 +525,7 @@ const updateUser = async (req, res) => {
     } catch (error) {
         console.error(error)
         res.status(500).json({
-            Error: error.message
+            message: error.message
         })
     }
 }
@@ -550,7 +549,7 @@ const deleteAccount = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            Error: error.message
+            message: error.message
         })
     }
 }
