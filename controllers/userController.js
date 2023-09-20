@@ -254,7 +254,7 @@ const forgotPassword = async (req, res) => {
         console.log(resetToken)
 
         const subject = "Password Reset";
-        const link = `${req.protocol}://${req.get('host')}/user/reset-password/${resetToken}`;
+        const link = `localhost:5173/user/reset-password/${resetToken}`;
         const html = await forgotMailTemplate(link, user.firstName);
         const mail = {
             email: email,
