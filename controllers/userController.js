@@ -220,7 +220,7 @@ const resendVerificationEmail = async (req, res) => {
 
         res.status(200).json({
             message: `Verification email sent successfully to your email: ${user.email}`,
-            data: user
+            token
         });
 
     } catch (error) {
