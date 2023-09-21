@@ -254,7 +254,7 @@ const forgotPassword = async (req, res) => {
         console.log(resetToken)
 
         const subject = "Password Reset";
-        const link =  `http://loalhost:5173/user/reset-password/token=${resetToken}`;
+        const link =  `http://localhost:5173/user/reset-password/token=${resetToken}`;
         const html = await forgotMailTemplate(link, user.firstName);
         const mail = {
             email: email,
