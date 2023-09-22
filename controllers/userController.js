@@ -333,15 +333,8 @@ const userLogin = async (req, res) => {
             });
         }
 
-        let user;
-
-        if (email) {
-            // Find user by their registered email
-            user = await userModel.findOne({ email: email.toLowerCase() });
-        } else if (phoneNumber) {
-            // Find user by their registered phone number
-            user = await userModel.findOne({ phoneNumber: phoneNumber });
-        }
+        // Find user by their 
+        const user = await userModel.findOne({ $or: [{ phoneNumber }, { email }] })
 
         // Check if the user exists
         if (!user) {
