@@ -254,7 +254,7 @@ const forgotPassword = async (req, res) => {
         console.log(resetToken)
 
         const subject = "Password Reset";
-        const link =  `https://curvegadgets.onrender.com/#/user/reset-password?token=${resetToken}`;
+        const link = `https://curvegadgets.onrender.com/#/user/reset-password?token=${resetToken}`;
         const html = await forgotMailTemplate(link, user.firstName);
         const mail = {
             email: email,
@@ -324,22 +324,31 @@ const resetPassword = async (req, res) => {
 // User login
 const userLogin = async (req, res) => {
     try {
-        const { password, email, phoneNumber } = req.body;
-
-        // Check if either email or phoneNumber is provided
-        if (!email && !phoneNumber) {
+        const { userData, password } = req.body;
+        if(!userData){
             return res.status(400).json({
-                message: "Please provide either an email or a phone number"
-            });
+                message: 'Please enter Email or Phone Number'
+            })
         }
 
-        // Find user by their 
-        const user = await userModel.findOne({ $or: [{ phoneNumber }, { email }] })
+        let query = {};
+
+        // Check if userData is an email or phone number and construct the query accordingly
+        if (userData.includes('@')) {
+            // If userData contains @ it is assumed to be an email address
+            query.email = userData;
+        } else {
+            // It is assumed to be a phone number
+            query.phoneNumber = userData;
+        }
+
+        // Find user based on email or Phone Number
+        const user = await userModel.findOne({ $or: [query] });
 
         // Check if the user exists
         if (!user) {
             return res.status(404).json({
-                message: 'User not found'
+                message: 'Invalid Email or Phone Number'
             });
         }
 
