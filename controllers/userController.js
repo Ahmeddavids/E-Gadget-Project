@@ -321,7 +321,7 @@ const resetPassword = async (req, res) => {
 };
 
 
-// User login
+// User login 
 const userLogin = async (req, res) => {
     try {
         const { userData, password } = req.body;

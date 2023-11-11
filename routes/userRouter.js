@@ -3,6 +3,7 @@ const { validationSignUp, validationUpdate, validationPassword } = require('../u
 const { signUp, verifyOTP, userLogin, resetPassword, resendVerificationEmail, forgotPassword, changePassword, signOut, updateUser, deleteAccount } = require('../controllers/userController');
 const resendOTPLimiter = require('../utils/resendLimit');
 const { authenticate } = require('../utils/authentication');
+const { addToCart, removeFromCart, getCart, deleteItemFroCart } = require('../controllers/cartController');
 const router = express.Router();
 
 
@@ -16,5 +17,12 @@ router.route('/user/reset-password/:token').post(validationUpdate, resetPassword
 router.route('/user/change-password').post(authenticate, validationPassword, changePassword);
 router.route('/user/update').post(authenticate, validationUpdate, updateUser);
 router.route('/user/delete-self').delete(authenticate, deleteAccount);
+
+
+// User cart routers
+router.route('/add-to-cart/').post(authenticate, addToCart);
+router.route('/remove-from-cart/').post(authenticate, removeFromCart);
+router.route('/get-cart/').get(authenticate, getCart);
+router.route('/delete-from-cart/').delete(authenticate, deleteItemFroCart);
 
 module.exports = router;
