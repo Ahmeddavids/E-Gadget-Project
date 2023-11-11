@@ -217,7 +217,7 @@ const getCart = async (req, res) => {
     }
 
     // Find the user's cart
-    const cart = await cartModel.findOne({ user: userId });
+    let cart = await cartModel.findOne({ user: userId });
 
     // Create a new cart for the user if no existing cart
     if (!cart) {
