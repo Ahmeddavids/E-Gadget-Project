@@ -59,7 +59,7 @@ const signUp = async (req, res) => {
         user.lastOtpId = otpInstance._id;
         await user.save();
 
-        const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" })
+        const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "7d" });
         console.log(token)
 
         // Construct the OTP email
@@ -135,7 +135,7 @@ const verifyOTP = async (req, res) => {
 
         if (!storedOtp) {
             return res.status(404).json({
-                message: 'OTP not found or expired'
+                message: 'Invalid OTP'
             });
         }
 

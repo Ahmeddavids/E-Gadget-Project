@@ -1,5 +1,5 @@
 const express = require('express');
-const { validationSignU, validationUpdate, validationPassword } = require('../utils/validator');
+const { validationSignUp, validationUpdate, validationPassword } = require('../utils/validator');
 const { signUp, verifyOTP, userLogin, resetPassword, resendVerificationEmail, forgotPassword, changePassword, signOut, updateUser, deleteAccount } = require('../controllers/userController');
 const resendOTPLimiter = require('../utils/resendLimit');
 const { authenticate } = require('../utils/authentication');
@@ -7,7 +7,7 @@ const { addToCart, removeFromCart, getCart, deleteItemFroCart } = require('../co
 const router = express.Router();
 
 
-router.route('/sign-up').post(validationSignU, signUp);
+router.route('/sign-up').post(validationSignUp, signUp);
 router.route('/sign-in').post(userLogin);
 router.route('/sign-out').post(signOut);
 router.route('/user/verify/:token').post(verifyOTP);
